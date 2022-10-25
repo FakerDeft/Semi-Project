@@ -34,8 +34,6 @@ public class Member {
 		this.deletedate = deletedate;
 	}
 
-	
-
 	public String getMemId() {
 		return memId;
 	}
