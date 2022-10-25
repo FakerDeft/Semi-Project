@@ -4,7 +4,7 @@
 Premium Shopping Mall for Master<br>
 =========================<br>
 
-사이트 소개
+간단한 사이트 소개
 <br><br>
 회원등급 및 권한 - 일반<장인<관리자
 <br><br>
