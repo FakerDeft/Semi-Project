@@ -4,11 +4,12 @@
 Premium Shopping Mall for Master<br>
 ============================<br>
 
--구조
-
+ - Introducing Site 
+<br>
 회원등급 - 일반/장인/관리자
-
+<br>
 장인이 되려면 관리자의 승인 필요.
-
-판매자 - 장인
+<br>
+판매자 - 장인 
+<br>
 구매자 - 일반, 장인
