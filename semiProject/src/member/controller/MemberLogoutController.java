@@ -21,14 +21,13 @@ public class MemberLogoutController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		HttpSession session = request.getSession();
 		
 //		session.invalidate();
 		session.removeAttribute("loginMem");
-		response.sendRedirect(request.getContextPath());
+		response.sendRedirect(request.getHeader("referer"));
 		
 	}
-
-
+	
 }

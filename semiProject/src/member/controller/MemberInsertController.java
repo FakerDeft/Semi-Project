@@ -2,6 +2,7 @@ package com.semi.member.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,36 +14,42 @@ import com.semi.member.model.service.MemberService;
 import com.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberLoginController
+ * Servlet implementation class MemberEnrollForm
  */
-@WebServlet("/login.me")
-public class MemberLoginController extends HttpServlet {
+@WebServlet("/insert.me")
+public class MemberInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public MemberLoginController() {
+
+    public MemberInsertController() {
         super();
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		
-		String referer = request.getParameter("referer");
 		String memId = request.getParameter("memId");
 		String memPw = request.getParameter("memPw");
-
-		Member loginMem = new MemberService().loginMember(memId, memPw);
+		String memName = request.getParameter("memName");
+		String memEmail = request.getParameter("memEmail");
+		String memPhone = request.getParameter("memPhone");
+		String memAddress = request.getParameter("memAddress");
 		
-		if(loginMem != null) {
+		Member m = new Member(memId,memPw,memName,memEmail,memPhone,memAddress);
+		
+		
+		int result = new MemberService().insertMember(m);
+		
+		if(result>0) {
 			HttpSession session = request.getSession();
-			session.setAttribute("loginMem", loginMem);
-			response.sendRedirect(referer);
+			RequestDispatcher view = request.getRequestDispatcher("views/member/memberEnrollForm3.jsp");
+			view.forward(request, response);
 		}
-		else {
+		
+		else {		
 			HttpSession session = request.getSession();
-			session.setAttribute("alertMsg", "로그인 실패!");
+			session.setAttribute("alertMsg", "이미 존재하는 유저입니다.");
 			response.sendRedirect(request.getContextPath());
 		}
 	}
-	
+
 }
