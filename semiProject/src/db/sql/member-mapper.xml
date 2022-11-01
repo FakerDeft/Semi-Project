@@ -10,5 +10,39 @@
 		AND ENROLLFLAG = 'Y'
 	</entry>
 	
+	<entry key="insertMember">
+	INSERT INTO MEMBER( MEM_NO,
+	                    MEM_ID,
+	                    MEM_PW,
+	                    MEM_NAME,
+	                    MEM_EMAIL,
+	                    MEM_PHONE,
+	                    MEM_ADDRESS
+                      ) VALUES(SEQ_MNO.NEXTVAL
+                      		 ,?
+                    		 ,?
+                    		 ,?
+                    		 ,?
+                    		 ,?
+                    		 ,?
+                    		 )
+	</entry>
+	
+	<entry key="checkId">
+		SELECT *
+		FROM MEMBER
+		WHERE MEM_ID = ?
+	</entry>
+	
 </properties>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
