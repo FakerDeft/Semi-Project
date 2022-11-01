@@ -17,6 +17,34 @@ public class MemberService {
 		
 		return m;
 	}
+
+	public int insertMember(Member m) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new MemberDao().insertMember(conn,m);
+		
+		if(result>0) {
+			JDBCTemplate.commit(conn);
+		}
+		else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	public int checkId(String memId) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+	
+		int result = new MemberDao().checkId(conn,memId);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 	
 }
-

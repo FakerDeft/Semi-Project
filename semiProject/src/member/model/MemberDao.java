@@ -70,8 +70,66 @@ public class MemberDao {
 				JDBCTemplate.close(pstmt);
 			}
 		}
-		
 		return m;
-		
 	}
+	
+	public int insertMember(Connection conn,Member m) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertMember");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getMemId());
+			pstmt.setString(2, m.getMemPw());
+			pstmt.setString(3, m.getMemName());
+			pstmt.setString(4, m.getMemEmail());
+			pstmt.setString(5, m.getMemPhone());
+			pstmt.setString(6, m.getMemAddress());
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("DB 오류");
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int checkId(Connection conn, String memId) {  // 유저가 입력한 값을 매개변수로 한다
+		
+		int idCheck = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkId");
+		
+	    try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memId);
+			
+			rset = pstmt.executeQuery();
+					
+			if(rset.next() || memId.equals("")) {
+				idCheck = 0;  // 이미 존재하는 경우, 생성 불가능
+			} else {
+				idCheck = 1;  // 존재하지 않는 경우, 생성 가능
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("DB 오류");
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return idCheck;
+	}
+
 }

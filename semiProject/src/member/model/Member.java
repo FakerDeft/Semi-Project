@@ -15,8 +15,20 @@ public class Member {
 	private String enrollflag;
 	private Date deletedate;
 	
+	private String referer;
+	
 	public Member() {
 		super();
+	}
+
+	public Member(String memId, String memPw, String memName, String memEmail, String memPhone, String memAddress) {
+		super();
+		this.memId = memId;
+		this.memPw = memPw;
+		this.memName = memName;
+		this.memEmail = memEmail;
+		this.memPhone = memPhone;
+		this.memAddress = memAddress;
 	}
 
 	public Member(String memId, String memPw, String memName, String memPhone, String memEmail, String memAddress,
@@ -33,6 +45,20 @@ public class Member {
 		this.enrollflag = enrollflag;
 		this.deletedate = deletedate;
 	}
+	
+	public Member(String referer) {
+		super();
+		this.referer = referer;
+	}
+
+	public String getReferer() {
+		return referer;
+	}
+
+	public void setReferer(String referer) {
+		this.referer = referer;
+	}
+	
 
 	public String getMemId() {
 		return memId;
