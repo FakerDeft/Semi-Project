@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.semi.member.model.vo.Member"%>
-
+<%
+	String referer = request.getHeader("referer");
+%>
 <!DOCTYPE html>
 <html>
 
@@ -11,12 +13,10 @@
     
     div#head{
         font-size: 40px;
+        width: 1600px;
         padding: 50px;
-        margin-right:100px;
-        margin-left:100px;
         margin-bottom: 50px;
-        border-top: 1px solid lightgrey;
-        border-bottom: 1px solid gray;
+        border-bottom: 2px solid lightgray;
     }
 
     div#body{
@@ -56,7 +56,7 @@
 
     #bottom{
         background-color:whitesmoke;
-        padding-top: 350px;
+        padding-top: 330px;
         margin-top: 10px;
         margin-left: 400px;
         margin-right: 400px;
@@ -66,18 +66,18 @@
     #id{
         border: 1px solid lightgray;
         border-radius: 3px;
-        width: 250px;
+        width: 300px;
         height: 40px;
     }
     #pw{
         border: 1px solid lightgray;
         border-radius: 3px;
-        width: 250px;
+        width: 300px;
         height: 40px;
     }
 
     #login-btn{
-        width: 250px;
+        width: 300px;
         height: 40px;
         border: 0px;
         border-radius: 3px;
@@ -85,7 +85,7 @@
         color: white;
     }
     #nomem-btn{
-        width: 250px;
+        width: 300px;
         height: 40px;
         border: 0px;
         border-radius: 3px;
@@ -96,6 +96,7 @@
         width: 300px;
         height: 40px;
         border: 0px;
+        margin-top:10px;
         border-radius: 3px;
         background-color: dodgerblue;
         color: white;
@@ -110,13 +111,14 @@
 
 <body>
 <%@ include file = "/views/common/menubar.jsp" %>
-
+	<div align="center" style="width:1900px; position:relative;">
         <div id="head" align="center">로그인</div>
 
         <div id="body" align="center">
 
             <div id="body1">
                 <form action="<%=contextPath %>/login.me" method="post" id="login-form">
+                    <input type="hidden" name="referer" value="<%=referer%>">
                     <table align="center" id="login1">
                         <tr align="left">
                             <td style="font-size: 20px; color:rgb(69, 69, 73);">| 회원 로그인</td>
@@ -134,7 +136,7 @@
                             <td><input type="password" name="memPw" id="pw" placeholder="비밀번호" required></td>
                         </tr>
                         <tr align="left">
-                            <td style="font-size: 12px;">
+                            <td style="font-size: 15px; padding:5px;">
                                 <input type="checkbox" name="remem" id="remem"> 아이디 저장
                             </td>
                         </tr>
@@ -181,8 +183,8 @@
                             <td><input type="password" name="memPw" id="pw" placeholder="주문번호" required></td>
                         </tr>
                         <tr align="left">
-                            <td style="padding-top: 5px;">
-                                <p></p>
+                            <td style="font-size: 15px; padding:5px;">
+                                <input type="checkbox" name="remem" id="remem"> 주문자명 저장
                             </td>
                         </tr>
                         <tr align="left">
@@ -192,7 +194,7 @@
                         </tr>
                         <tr>    
                             <td style="color:gray;">
-                               	※주문번호와 비밀번호를 잊으신 경우, <br>
+                               	⚠주문번호를 잊으신 경우, <br> 
                                	고객센터로 문의해주세요.
                             </td>
                         </tr>
@@ -203,23 +205,27 @@
         </div>
 
         <div id="bottom" align="center">
-            <p>아직 장인의 회원이 아니신가요?</p>
-            <p>
-                <button onclick="enrollPage();" id="enroll-btn">회원가입</button>
-            </p>
+        	<table>
+        		<tr align="center" >
+        			<td>
+        				아직 장인의 회원이 아니신가요?
+        			</td>
+        		</tr>
+        		<tr align="center">
+        			<td>
+        			 <button onclick="enrollPage();" id="enroll-btn">회원가입</button>
+        			</td>
+        		</tr>
+        	</table>
         </div>
+	</div>
             
   
 	<script>
         	function enrollPage(){
-        		//location.href = "<%=contextPath%>/views/member/memberEnrollForm.jsp";
-        		//웹 애플리케이션의 디렉토리 구조가 url에 노출되면 보안에 취약하다.
-        		
-        		//단순한 정적 페이지 이동이여도 해당 페이지로 바로 이동하지 않고
-        		//servlet을 거쳐서 서블릿 매핑값으로 보여지게 할 것
-        		location.href = "<%=contextPath%>/enrollForm.me";
+        		location.href = "<%=contextPath%>/enrollForm1.me";
         	}
-        </script>
+    </script>
 		
 
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
