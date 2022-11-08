@@ -28,10 +28,35 @@
                     		 )
 	</entry>
 	
-	<entry key="checkId">
+	<entry key="idDuplicationCheck">
 		SELECT *
 		FROM MEMBER
 		WHERE MEM_ID = ?
+	</entry>
+	
+	<entry key="findId">
+		SELECT MEM_ID
+		FROM MEMBER
+		WHERE MEM_NAME = ?
+		AND MEM_PHONE = ?
+		AND ENROLLFLAG = 'Y'
+	</entry>
+	
+	<entry key="findPw">
+		SELECT MEM_PW
+		FROM MEMBER
+		WHERE MEM_ID = ?
+		AND MEM_NAME = ?
+		AND MEM_PHONE = ?
+		AND ENROLLFLAG = 'Y'
+	</entry>
+	
+	<entry key="loginNoMember">
+		SELECT *
+		FROM MEMORDER
+		WHERE RECIVER_NAME = ?
+		AND ORDER_NO = ?
+		AND MEM_FLAG = 'Y'
 	</entry>
 	
 </properties>
