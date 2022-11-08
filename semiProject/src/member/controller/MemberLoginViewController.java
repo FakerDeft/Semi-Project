@@ -22,11 +22,14 @@ public class MemberLoginViewController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Member referer = new Member((String)request.getHeader("referer"));
-		
+		Member referer = null;
+		if(request.getHeader("referer") == null) {
+			referer = new Member((String)request.getContextPath());
+		} else {
+			referer = new Member((String)request.getHeader("referer"));
+		}
 		request.setAttribute("referer", referer);
 		request.getRequestDispatcher("views/member/memberLoginView.jsp").forward(request, response);
-
 	}
 	
 }

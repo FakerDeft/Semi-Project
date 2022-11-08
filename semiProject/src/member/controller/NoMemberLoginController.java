@@ -1,7 +1,6 @@
 package com.semi.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,32 +10,32 @@ import javax.servlet.http.HttpSession;
 
 import com.semi.member.model.service.MemberService;
 import com.semi.member.model.vo.Member;
+import com.semi.member.model.vo.Order;
 
 /**
- * Servlet implementation class MemberLoginController
+ * Servlet implementation class NoMemberLoginController
  */
-@WebServlet("/login.me")
-public class MemberLoginController extends HttpServlet {
+@WebServlet("/nologin.me")
+public class NoMemberLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public MemberLoginController() {
+    public NoMemberLoginController() {
         super();
     }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String referer = request.getParameter("referer");
-		String memId = request.getParameter("memId");
-		String memPw = request.getParameter("memPw");
+		String reciverName = request.getParameter("reciverName");
+		String orderNo = request.getParameter("orderNo");
 
-		Member loginMem = new MemberService().loginMember(memId, memPw);
+		Order loginNoMem = new MemberService().loginNoMember(reciverName, orderNo);
 		
-		if(loginMem != null) {
+		if(loginNoMem != null) {
 			HttpSession session = request.getSession();
-			session.setAttribute("loginMem", loginMem);
-			response.sendRedirect(referer);
+			session.setAttribute("loginNoMem", loginNoMem);
+			response.sendRedirect(request.getContextPath());
 		}
 		else {
 			HttpSession session = request.getSession();
@@ -44,10 +43,5 @@ public class MemberLoginController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/loginview.me");
 		}
 	}
-	
+
 }
-
-
-
-
-

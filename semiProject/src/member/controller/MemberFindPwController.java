@@ -8,35 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MemberEnrollForm2
+ * Servlet implementation class MemberFindPwController
  */
-@WebServlet("/enrollForm2.me")
-public class MemberEnrollForm2Controller extends HttpServlet {
+@WebServlet("/findPw.me")
+public class MemberFindPwController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public MemberEnrollForm2Controller() {
+
+    public MemberFindPwController() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.getRequestDispatcher("views/member/memberEnrollForm2.jsp").forward(request, response);
 		
+		request.getRequestDispatcher("views/member/memberFindPwForm.jsp").forward(request, response);
+	
 	}
 
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

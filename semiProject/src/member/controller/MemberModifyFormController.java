@@ -7,24 +7,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.semi.member.model.vo.Member;
+
 /**
- * Servlet implementation class MemberEnrollForm2
+ * Servlet implementation class MemberModifyFormController
  */
-@WebServlet("/enrollForm2.me")
-public class MemberEnrollForm2Controller extends HttpServlet {
+@WebServlet("/modifyform.me")
+public class MemberModifyFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public MemberEnrollForm2Controller() {
+ 
+    public MemberModifyFormController() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.getRequestDispatcher("views/member/memberEnrollForm2.jsp").forward(request, response);
 		
+		request.getRequestDispatcher("views/member/memberModifyForm.jsp").forward(request, response);
 	}
-
 }
+
+
+
+
+
+
 
 
 
