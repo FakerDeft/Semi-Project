@@ -10,10 +10,14 @@ import java.util.Properties;
 
 import com.semi.common.JDBCTemplate;
 import com.semi.member.model.vo.Member;
+import com.semi.member.model.vo.MemberId;
+import com.semi.member.model.vo.MemberPw;
+import com.semi.member.model.vo.Order;
 
 public class MemberDao {
 	
 	private Properties prop = new Properties();
+	
 	
 	public MemberDao() {
 			
@@ -27,7 +31,7 @@ public class MemberDao {
 			}
 	}
 		
-
+	//로그인 메소드
 	public Member loginMember(Connection conn, String memId, String memPw) {
 		
 		Member m = null;
@@ -46,7 +50,8 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				m = new Member(rset.getString("MEM_ID")
+				m = new Member(rset.getInt("MEM_NO")
+							  ,rset.getString("MEM_ID")
 							  ,rset.getString("MEM_PW")
 							  ,rset.getString("MEM_NAME")
 							  ,rset.getString("MEM_PHONE")
@@ -73,6 +78,7 @@ public class MemberDao {
 		return m;
 	}
 	
+	//회원가입 메소드
 	public int insertMember(Connection conn,Member m) {
 		
 		int result = 0;
@@ -102,12 +108,13 @@ public class MemberDao {
 		return result;
 	}
 	
-	public int checkId(Connection conn, String memId) {  // 유저가 입력한 값을 매개변수로 한다
+	//아이디 중복 체크 메소드
+	public int idDuplicationCheck(Connection conn, String memId) {
 		
-		int idCheck = 0;
+		int idDuplicationCheck = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("checkId");
+		String sql = prop.getProperty("idDuplicationCheck");
 		
 	    try {
 			pstmt = conn.prepareStatement(sql);
@@ -116,9 +123,9 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 					
 			if(rset.next() || memId.equals("")) {
-				idCheck = 0;  // 이미 존재하는 경우, 생성 불가능
+				idDuplicationCheck = 0;  // 이미 존재하는 경우, 생성 불가능
 			} else {
-				idCheck = 1;  // 존재하지 않는 경우, 생성 가능
+				idDuplicationCheck = 1;  // 존재하지 않는 경우, 생성 가능
 			}
 			
 		} catch (SQLException e) {
@@ -129,7 +136,114 @@ public class MemberDao {
 			JDBCTemplate.close(pstmt);
 		}
 		
-		return idCheck;
+		return idDuplicationCheck;
+	}
+
+	//아이디 찾기 메소드
+	public MemberId findId(Connection conn, String memName, String memPhone) {
+		
+		MemberId mid = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("findId");
+		
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memName);
+			pstmt.setString(2, memPhone);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mid = new MemberId(rset.getString("MEM_ID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("DB 이상!");
+		}finally {
+			if(rset != null) {
+				JDBCTemplate.close(rset);
+			}
+			if(pstmt != null) {				
+				JDBCTemplate.close(pstmt);
+			}
+		}
+		
+		return mid;
+	}
+
+	public MemberPw findPw(Connection conn, String memId, String memName, String memPhone) {
+		MemberPw mpw = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("findPw");
+		
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memId);
+			pstmt.setString(2, memName);
+			pstmt.setString(3, memPhone);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mpw = new MemberPw(rset.getString("MEM_PW"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("DB 이상!");
+		}finally {
+			if(rset != null) {
+				JDBCTemplate.close(rset);
+			}
+			if(pstmt != null) {				
+				JDBCTemplate.close(pstmt);
+			}
+		}
+		
+		return mpw;
+	}
+
+	public Order loginNoMember(Connection conn, String reciverName, String orderNo) {
+		Order o = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("loginNoMember");
+		
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, reciverName);
+			pstmt.setString(2, orderNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				o = new Order(rset.getInt("ORDER_NO")
+							 ,rset.getString("RECIVER_NAME")
+							  );
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("DB 이상!");
+		}finally {
+			if(rset != null) {
+				JDBCTemplate.close(rset);
+			}
+			if(pstmt != null) {				
+				JDBCTemplate.close(pstmt);
+			}
+		}
+		return o;
 	}
 
 }

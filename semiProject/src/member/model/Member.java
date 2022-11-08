@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Member {
 	
+	private int memNo;
 	private String memId;
 	private String memPw;
 	private String memName;
@@ -31,9 +32,10 @@ public class Member {
 		this.memAddress = memAddress;
 	}
 
-	public Member(String memId, String memPw, String memName, String memPhone, String memEmail, String memAddress,
+	public Member(int memNo, String memId, String memPw, String memName, String memPhone, String memEmail, String memAddress,
 			String grade, Date enrolldate, String enrollflag, Date deletedate) {
 		super();
+		this.memNo = memNo;
 		this.memId = memId;
 		this.memPw = memPw;
 		this.memName = memName;
@@ -45,7 +47,7 @@ public class Member {
 		this.enrollflag = enrollflag;
 		this.deletedate = deletedate;
 	}
-	
+
 	public Member(String referer) {
 		super();
 		this.referer = referer;
@@ -58,7 +60,6 @@ public class Member {
 	public void setReferer(String referer) {
 		this.referer = referer;
 	}
-	
 
 	public String getMemId() {
 		return memId;
