@@ -6,8 +6,8 @@
 	
 	//로그인 성공시 session에 담아놓은 loginUser 꺼내기
 	Member loginMem = (Member)session.getAttribute("loginMem");	
-	//로그인 전 loginUser == null
-	//로그인 후 loginUser == 로그인한 회원 정보를 담은 Member 객체
+	//로그인 전 loginMem == null
+	//로그인 후 loginMem == 로그인한 회원 정보를 담은 Member 객체
 	
 	//로그인 성공시 session에 담아놓은 알림 메세지도 꺼내주기
 	String alertMsg = (String)session.getAttribute("alertMsg");
@@ -15,6 +15,7 @@
 	//서비스 요청 전 : null
 	//서비스 요청 후 : 해당 서비스에서 넣어놓은 알림 메세지
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +43,7 @@
 		display: table-cell;
 		height: 50px;
 		padding-top:20px;
-        width: 100px;
+        width: 120px;
 	}
     .nav-area{
     	width: 1600px;
@@ -123,11 +124,25 @@
 		</script>
 		
 		<%if(loginMem != null) {%>
-	     <div id="user-info">
-			    <br><br>
-			    	<div align="center">
-			    	<a href="<%=contextPath%>/logout.me">로그아웃</a>
-			    </div>
+	     <div align="right" id="headbar">
+			<div class="headbtn">
+			    <a href="<%=contextPath%>/logout.me">로그아웃</a>
+			</div>
+			<%if(loginMem.getGrade().equals("관리자")) {%>
+			<div class="headbtn">
+				<a href="">&nbsp; 관리자페이지</a>
+			</div>
+			<%} else{%>
+			<div class="headbtn">
+				<a href="">마이페이지</a>
+			</div>
+			<%} %>
+			<div class="headbtn">
+				<a href="">주문조회</a>
+			</div>
+			<div class="headbtn">
+				<a href="">장바구니</a>
+			</div>
 		</div>
 		<%}else{ %>
 		<div align="right" id="headbar">
@@ -187,12 +202,12 @@
 		        <div class="menu">
 		        	<ul class="menu_category">
 	                   <li class="category"><a href="">사이트안내</a></li>
-	                   <li class="category"><a href="">공지사항</a></li>
+	                   <li class="category"><a href="<%=contextPath%>/list.no">공지사항</a></li>
 		        	</ul>
 		        </div>
 		        <div class="menu">
 		        	<ul class="menu_category">
-	                   <li class="category"><a href="">자주묻는질문</a></li>
+	                   <li class="category"><a href="<%=contextPath %>/list.fq">자주묻는질문</a></li>
 	                   <li class="category"><a href="">1:1 문의</a></li>
 		        	</ul>
 		        </div>
@@ -222,7 +237,6 @@
 	            })
 	        }
 	    })
-	
 	    $('.nav-area2').mouseenter(function(){
 	        $('.nav-area2').eq($(this).index()).css({
 	            display:'block'
@@ -234,6 +248,7 @@
 	        })
 	    })
 	</script>
+	
 </body>
 
 </html>
