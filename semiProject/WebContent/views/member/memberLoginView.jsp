@@ -3,6 +3,7 @@
 <%
 	String referer = request.getHeader("referer");
 %>
+
 <!DOCTYPE html>
 <html>
 
@@ -63,13 +64,7 @@
         padding-bottom: 30px;
     }
 
-    #id{
-        border: 1px solid lightgray;
-        border-radius: 3px;
-        width: 300px;
-        height: 40px;
-    }
-    #pw{
+    .inputs{
         border: 1px solid lightgray;
         border-radius: 3px;
         width: 300px;
@@ -84,7 +79,7 @@
         background-color: rgb(69, 69, 73);
         color: white;
     }
-    #nomem-btn{
+    #order-btn{
         width: 300px;
         height: 40px;
         border: 0px;
@@ -101,7 +96,6 @@
         background-color: dodgerblue;
         color: white;
     }
-   
 
 </style>
 
@@ -111,13 +105,14 @@
 
 <body>
 <%@ include file = "/views/common/menubar.jsp" %>
+	<%if(loginMem == null) {%>
 	<div align="center" style="width:1900px; position:relative;">
         <div id="head" align="center">로그인</div>
 
         <div id="body" align="center">
 
             <div id="body1">
-                <form action="<%=contextPath %>/login.me" method="post" id="login-form">
+                <form action="<%=contextPath %>/login.me" method="post" id="login-form" onsubmit="return frm_check();">
                     <input type="hidden" name="referer" value="<%=referer%>">
                     <table align="center" id="login1">
                         <tr align="left">
@@ -127,17 +122,17 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="memId" id="id" placeholder="아이디" required></td>
+                       		<td><input type="text" name="memId" class="inputs" id="logId" placeholder="아이디" required></td>
                         </tr>
                         <tr align="left">
                             <td></td>
                         </tr>
                         <tr>
-                            <td><input type="password" name="memPw" id="pw" placeholder="비밀번호" required></td>
+                            <td><input type="password" name="memPw" class="inputs" id="memPw" placeholder="비밀번호" required></td>
                         </tr>
                         <tr align="left">
-                            <td style="font-size: 15px; padding:5px;">
-                                <input type="checkbox" name="remem" id="remem"> 아이디 저장
+                            <td colspan="2" style="font-size: 15px; margin:10px;">
+                                <input type="checkbox" name="saveId" id="saveId">&nbsp; <label for="saveId">아이디 저장</label>
                             </td>
                         </tr>
                         <tr align="left">
@@ -147,8 +142,8 @@
                         </tr>
                         <tr align="right">
                             <td>
-                                <a href="">아이디 찾기</a> |
-                                <a href="">비밀번호 찾기</a>
+                                <a href="<%=contextPath%>/findId.me">아이디 찾기</a> |
+                                <a href="<%=contextPath%>/findPw.me">비밀번호 찾기</a>
                                 <br>
                             </td>
                         </tr>
@@ -165,7 +160,7 @@
             </div>
             
             <div id="body2">
-                <form action="/smp/noLogin.me" method="post" id="login-form">
+                <form action="<%=contextPath %>/nologin.me" method="post" id="login-form">
                     <table align="center" id="login2">
                         <tr align="left">
                             <td style="font-size: 20px; color:rgb(69, 69, 73)">| 비회원 구매조회</td>
@@ -174,22 +169,22 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="memId" id="id" placeholder="주문자명" required></td>
+                            <td><input type="text" name="reciverName" class="inputs" id="orderName" placeholder="주문자명" required></td>
                         </tr>
                         <tr align="left">
                             <td></td>
                         </tr>
                         <tr>
-                            <td><input type="password" name="memPw" id="pw" placeholder="주문번호" required></td>
+                            <td><input type="text" name="orderNo" class="inputs" id="orderNum" placeholder="주문번호" required></td>
                         </tr>
                         <tr align="left">
-                            <td style="font-size: 15px; padding:5px;">
-                                <input type="checkbox" name="remem" id="remem"> 주문자명 저장
+                            <td colspan="2" style="font-size: 15px; margin:10px;">
+                                <input type="checkbox" name="saveName" id="saveName">&nbsp; <label for="saveId">주문자명 저장</label>
                             </td>
                         </tr>
                         <tr align="left">
                             <th>
-                                <button type="submit" id="nomem-btn">주문 배송 조회</button>
+                                <button type="submit" id="order-btn">주문 배송 조회</button>
                             </th>
                         </tr>
                         <tr>    
@@ -219,15 +214,120 @@
         	</table>
         </div>
 	</div>
-            
-  
+	<%}else{ %>
+		<script type="text/javascript">
+			alert("이미 로그인 상태입니다");
+			location.replace("/smp");
+		</script>
+	<%} %>
 	<script>
-        	function enrollPage(){
-        		location.href = "<%=contextPath%>/enrollForm1.me";
-        	}
+		$(function() {
+        
+        fnInit();
+      
+	  	});
+	  
+		function frm_check(){
+		      saveid();
+		}
+
+		 function fnInit(){
+		     var cookieid = getCookie("saveid");
+		     var cookieName = getCookie("saveName");
+		     console.log(cookieid);
+		     console.log(cookieName);
+		     if(cookieid != ""){
+		         $("input:checkbox[id='saveId']").prop("checked", true);
+		         $('#logId').val(cookieid);
+		     }
+		     if(cookieName != ""){
+		         $("input:checkbox[id='saveName']").prop("checked", true);
+		         $('#reciverName').val(cookieName);
+		     }    
+		 }
+
+		 function setCookie(name, value, expiredays) {
+		     var todayDate = new Date();
+		     todayDate.setTime(todayDate.getTime() + 0);
+		     if(todayDate > expiredays){
+		         document.cookie = name + "=" + escape(value) + "; path=/; expires=" + expiredays + ";";
+		     }else if(todayDate < expiredays){
+		         todayDate.setDate(todayDate.getDate() + expiredays);
+		         document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";";
+		     }
+		     
+		     console.log(document.cookie);
+		 }
+
+		 function getCookie(Name) {
+		     var search = Name + "=";
+		     console.log("search : " + search);
+		     
+		     if (document.cookie.length > 0) { // 쿠키가 설정되어 있다면 
+		         offset = document.cookie.indexOf(search);
+		         console.log("offset : " + offset);
+		         if (offset != -1) { // 쿠키가 존재하면 
+		             offset += search.length;
+		             // set index of beginning of value
+		             end = document.cookie.indexOf(";", offset);
+		             console.log("end : " + end);
+		             // 쿠키 값의 마지막 위치 인덱스 번호 설정 
+		             if (end == -1)
+		                 end = document.cookie.length;
+		             console.log("end위치  : " + end);
+		             
+		             return unescape(document.cookie.substring(offset, end));
+		         }
+		     }
+		     return "";
+		 }
+
+		 function saveid() {
+		     var expdate = new Date();
+		     if ($("#saveId").is(":checked") || $("#saveName").is(":checked")){
+		         expdate.setTime(expdate.getTime() + 1000 * 3600 * 24 * 30);
+		         setCookie("saveid", $("#logId").val(), expdate);
+		         setCookie("saveName", $("#reciverName").val(), expdate);
+		         }else{
+		        expdate.setTime(expdate.getTime() - 1000 * 3600 * 24 * 30);
+		         setCookie("saveid", $("#logId").val(), expdate);
+		         setCookie("saveName", $("#reciverName").val(), expdate);
+		     }
+		 }
+		 
+		//회원가입 페이지 메소드
+        function enrollPage(){
+        	location.href = "<%=contextPath%>/enrollForm1.me";
+        }
+
     </script>
 		
 
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

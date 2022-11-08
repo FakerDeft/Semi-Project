@@ -40,15 +40,6 @@
 		padding-top: 30px;
 	}
 	
-    <!-- 생년월일 -->
-	.bir_yy,.bir_mm,.bir_dd{
-		width:160px;
-		display:table-cell;
-	}
-	.bir_mm+.bir_dd, .bir_yy+.bir_mm{
-		padding-left:10px;
-	}
-	
 	#id,#pw,#pwc,#name,#email{
 		width: 500px;
 	}
@@ -61,18 +52,18 @@
 		<div class="outer">
 			<div id="head" align="center">회원가입</div>
 			
-			<section class="bg-light">
+		<section class="bg-light">
         <div class="container py-4">
             <div class="row align-items-center justify-content-between">
                 <a class="navbar-brand h1 text-center" href="index.do">
                     <span class="text-dark h4"></span> <span class="text-primary h4"></span>                 
                 </a>
-            </div>
-            <form>
+       		</div>
+            <form action="<%=contextPath %>/insert.me" method="post">
                 <div class="form-group">
                		<label for="exampleInputEmail1" class="form-label mt-4">아이디</label>
-                    <input type="text" class="form-control is-valid" id="id" placeholder="4~15자의 영문/숫자를 조합하여 입력">
-                	<div class="valid-feedback"></div>
+                    <input type="text" class="form-control" id="id" placeholder="4~15자의 영문/숫자를 조합하여 입력">
+                	<div class="invalid-feedback" id="cid">아이디를 입력하세요</div>
                 </div>
 				<div class="form-group has-success">
 					<label class="form-label mt-4" for="inputValid">비밀번호</label>
@@ -81,64 +72,27 @@
 
 				<div class="form-group has-danger">
 					<label class="form-label mt-4" for="inputInvalid">비밀번호 재확인</label> 
-					<input type="password" class="form-control is-invalid" id="pwc" placeholder="비밀번호 다시 입력">
+					<input type="password" class="form-control" id="pwc" placeholder="비밀번호 다시 입력">
 					<div class="invalid-feedback" id="cp">비밀번호를 입력하세요</div>
 				</div>
                 <div class="form-group">
                		<label for="exampleInputEmail1" class="form-label mt-4">이름</label>
                     <input type="text" class="form-control" id="name" placeholder="이름 입력">
+                	<div class="invalid-feedback" id="cn">이름을 입력하세요</div>
                 </div>
                 <div class="form-group">
-               		<label for="exampleInputEmail1" class="form-label mt-4">본인 확인 이메일</label>
+               		<label for="exampleInputEmail1" class="form-label mt-4">이메일</label>
                     <input type="email" class="form-control" id="email" placeholder="이메일 입력">
+                	<div class="invalid-feedback" id="ce">이메일을 입력하세요</div>
                 </div>
-                <div class ="bir_wrap">
-                	<label class="form-label mt-4">생년월일</label>
-                	<div class="bir_yy">
-                		<span class="ps_box">
-                			<input type="text" class="form-control" id="yy" placeholder="년(4자)" maxlength="4">
-                		</span>
-                	</div>
-                	<div class="bir_mm">
-                		<span class="ps_box focus">
-			                <select class="form-select" id="mm" id="exampleSelect1">
-						        <option>월</option>
-						        <option>1</option>
-						        <option>2</option>
-						        <option>3</option>
-						        <option>4</option>
-						        <option>5</option>
-						        <option>6</option>
-						        <option>7</option>
-						        <option>8</option>
-						        <option>9</option>
-						        <option>10</option>
-						        <option>11</option>
-						        <option>12</option>
-						     </select>
-                		</span>
-                	</div>
-                	<div class="bir_dd">
-                		<span class="ps_box">
-                			<input type ="text" class="form-control" id ="dd" placeholder="일" maxlength="2">
-                		</span>
-                	</div>
-                </div>
-			    <div class="form-group">
-			      <label for="exampleSelect1" class="form-label mt-4">성별</label>
-			      <select class="form-select" id="exampleSelect1">
-			        <option>남자</option>
-			        <option>여자</option>
-			      </select>
-			    </div>                
-                
 				<div class="d-grid gap-2">
-                    <button class="btn btn-primary btn-lg" type="button">가입하기</button>
+                    <button class="btn btn-primary btn-lg" type="submit" onclick="return register();">가입하기</button>
+                	<button type="button" class="btn btn-danger" id="btn-cancel" onclick="location.replace('<%=contextPath%>')">취소</button>
                 </div>
 
             </form>
         </div>
-    </section>
+    	</section>
 			
 		</div>
 	</div>
@@ -156,31 +110,28 @@
             var email_rule =  /^[0-9a-zA-Z]{1,}@[0-9a-zA-Z]{1,}.[a-zA-Z]{2,3}$/;
 
             
-            if(id==""){
+            if(id == ""){
                 alert("아이디를 입력해주세요.")
                 return false;
-            }
-            else if(pw==""){
+            } else if(!id_rule.test(id)){
+                alert("아이디는 영문자, 숫자를 포함해 4~15자만 가능합니다.")
+                return false;
+            } else if(pw == ""){
                 alert("비밀번호를 입력해주세요.")
                 return false;
-            }
-            else if(!pw_rule.test(pw)){
-                alert("영문자, 숫자, 특수문자(!@#$%^&*)를 포함해 8~16자만 가능합니다.")
+            } else if(!pw_rule.test(pw)){
+                alert("비밀번호는 영문자, 숫자, 특수문자(!@#$%^&*)를 포함해 8~16자만 가능합니다.")
                 return false;
-            }
-            else if(name==""){
+            } else if(name == ""){
                 alert("이름을 입력해주세요.")
                 return false;
-            }
-            else if(!name_rule.test(name)){
-                alert("2글자 이상 한글만 가능합니다.")
+            } else if(!name_rule.test(name)){
+                alert("이름은 2글자 이상 한글만 가능합니다.")
                 return false;
-            }
-            else if(email==""){
+            } else if(email == ""){
                 alert("이메일을 입력해주세요.")
                 return false;
-            }
-            else if(!email_rule.test(email)){
+            } else if(!email_rule.test(email)){
                 alert("이메일 형식에 맞춰서 입력하세요.")
                 return false;
             }
@@ -196,15 +147,17 @@
     			data : {memId: memId},
     			dataType : 'json',
     			success : function(result){
-    				if(result == 0){
-    					$("#checkId").html('사용할 수 없는 아이디입니다.');
-    					$("#checkId").attr('color','red');
-    				} else if(!id_rule.test(memId)){
-    					$("#checkId").html('사용할 수 없는 아이디입니다.');
-    					$("#checkId").attr('color','red');
+    				if(memId == ""){
+    					$("#cid").html('아이디를 입력하세요');
+    					$("#id").attr("class","form-control is-invalid");
+    				}else if(result == 0){
+    					$("#cid").html('사용할 수 없는 아이디입니다');
+    					$("#id").attr("class","form-control is-invalid");
+    				}else if(!id_rule.test(memId)){
+    					$("#cid").html('사용할 수 없는 아이디입니다');
+    					$("#id").attr("class","form-control is-invalid");
     	            } else{
-    					$("#checkId").html('사용 가능한 아이디입니다.');
-    					$("#checkId").attr('color','green');
+    					$("#id").attr("class","form-control is-valid");
     				} 
     			},
     			error : function(){
@@ -216,18 +169,26 @@
         
         $("#pw").focusout(function(){
         	let pw = $('#pw').val();
+        	let pw_rule = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+])(?!.*[^a-zA-z0-9$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
         	let pwc = $('#pwc').val();
         	
         	if(pw == ""){
         		$("#cp").html('비밀번호를 입력하세요');
-        	}
-        	else if(pw != pwc){
+        		$("#pw").attr("class","form-control is-invalid");
+        		$("#pwc").attr("class","form-control is-invalid");
+        	}else if(!pw_rule.test(pw)){
+        		$("#cp").html('영문자, 숫자, 특수문자(!@#$%^&*)를 포함해 8~16자만 가능합니다');
+        		$("#pw").attr("class","form-control is-invalid");
+        		$("#pwc").attr("class","form-control is-invalid");
+        	}else if(pw != pwc){
         		$("#cp").html('비밀번호가 일치하지 않습니다');
+        		$("#pw").attr("class","form-control is-invalid");
+        		$("#pwc").attr("class","form-control is-invalid");
         	}else{        		
         		$("#cp").html('');
-        		$("#cp").attr('',);
+        		$("#pw").attr("class","form-control is-valid");
+        		$("#pwc").attr("class","form-control is-valid");
         	}
-        	
         })
         
         $("#pwc").focusout(function(){
@@ -236,22 +197,55 @@
         	
         	if(pw == ""){
         		$("#cp").html('비밀번호를 입력하세요');
-        	}
-        	else if(pwc == "" || pw != pwc){
+        		$("#pw").attr("class","form-control is-invalid");
+        		$("#pwc").attr("class","form-control is-invalid");
+        	}else if(!pw_rule.test(pw)){
+        		$("#cp").html('영문자, 숫자, 특수문자(!@#$%^&*)를 포함해 8~16자만 가능합니다');
+        		$("#pw").attr("class","form-control is-invalid");
+        		$("#pwc").attr("class","form-control is-invalid");
+        	}else if(pwc == "" || pw != pwc){
         		$("#cp").html('비밀번호가 일치하지 않습니다');
+        		$("#pw").attr("class","form-control is-invalid");
+        		$("#pwc").attr("class","form-control is-invalid");
         	}else{        		
         		$("#cp").html('');
+        		$("#pw").attr("class","form-control is-valid");
+        		$("#pwc").attr("class","form-control is-valid");
         	}
-        	
         })
         
+        $("#name").focusout(function(){
+        	let name = $("#name").val();
+            let name_rule = /^[가-힣]{2,}$/;
+            
+            if(name == ""){
+        		$("#cn").html('이름을 입력하세요');
+        		$("#name").attr("class","form-control is-invalid");
+        	}else if(!name_rule.test(name)){
+        		$("#cn").html('2글자 이상 한글만 가능합니다');
+        		$("#name").attr("class","form-control is-invalid");
+        	}else{   		
+        		$("#cn").html('');
+        		$("#name").attr("class","form-control is-valid");
+        	}
+        })
         
-        function goHome(){
-        	location.href = "<%=contextPath%>";
-        }
-          
+        $("#email").focusout(function(){
+        	let email = $("#email").val();
+            let email_rule =  /^[0-9a-zA-Z]{1,}@[0-9a-zA-Z]{1,}.[a-zA-Z]{2,3}$/;
+            
+            if(email == ""){
+        		$("#ce").html('이메일을 입력하세요');
+        		$("#email").attr("class","form-control is-invalid");
+        	}else if(!email_rule.test(email)){
+        		$("#ce").html('이메일 형식에 맞춰서 입력하세요');
+        		$("#email").attr("class","form-control is-invalid");
+        	}else{   		
+        		$("#ce").html('');
+        		$("#email").attr("class","form-control is-valid");
+        	}
+        })
     </script>
-      
 	
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
