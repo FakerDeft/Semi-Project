@@ -23,21 +23,21 @@ public class NoMemberLoginController extends HttpServlet {
         super();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		request.setCharacterEncoding("UTF-8");
 		
 		String reciverName = request.getParameter("reciverName");
 		String orderNo = request.getParameter("orderNo");
-
 		Order loginNoMem = new MemberService().loginNoMember(reciverName, orderNo);
-		
-		if(loginNoMem != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginNoMem", loginNoMem);
-			response.sendRedirect(request.getContextPath());
-		}
-		else {
+
+		try {
+			if(!loginNoMem.equals(null)) {
+				HttpSession session = request.getSession();
+				session.setAttribute("loginNoMem", loginNoMem);
+				response.sendRedirect(request.getContextPath());
+			} 
+		} catch(NullPointerException e){
+			e.printStackTrace();
 			HttpSession session = request.getSession();
 			session.setAttribute("alertMsg", "로그인 실패!");
 			response.sendRedirect(request.getContextPath()+"/loginview.me");
@@ -45,3 +45,20 @@ public class NoMemberLoginController extends HttpServlet {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

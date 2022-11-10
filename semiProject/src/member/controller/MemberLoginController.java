@@ -33,12 +33,14 @@ public class MemberLoginController extends HttpServlet {
 
 		Member loginMem = new MemberService().loginMember(memId, memPw);
 		
-		if(loginMem != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginMem", loginMem);
-			response.sendRedirect(referer);
-		}
-		else {
+		try {
+			if(!loginMem.equals(null)) {
+				HttpSession session = request.getSession();
+				session.setAttribute("loginMem", loginMem);
+				response.sendRedirect(referer);
+			}
+		} catch(NullPointerException e){
+			e.printStackTrace();
 			HttpSession session = request.getSession();
 			session.setAttribute("alertMsg", "로그인 실패!");
 			response.sendRedirect(request.getContextPath()+"/loginview.me");
@@ -46,6 +48,21 @@ public class MemberLoginController extends HttpServlet {
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
