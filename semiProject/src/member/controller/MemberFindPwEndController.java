@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.semi.member.model.service.MemberService;
 import com.semi.member.model.vo.MemberId;
@@ -29,13 +30,18 @@ public class MemberFindPwEndController extends HttpServlet {
 		String memName = request.getParameter("memName");
 		String memPhone = request.getParameter("memPhone");
 		MemberPw mpw = new MemberService().findPw(memId,memName, memPhone);
-		
-		if (mpw.equals(null)) {
-			System.out.println("비번 조회 실패");
-		} else {
-			System.out.println("비번 조회 성공");
-			request.setAttribute("mpw", mpw);
-			request.getRequestDispatcher("/views/member/memberFindPwEnd.jsp").forward(request, response);
+	
+		try {
+			if(!mpw.equals(null)) {				
+				System.out.println("비밀번호 조회 성공");
+				request.setAttribute("mpw", mpw);
+				request.getRequestDispatcher("views/member/memberFindPwEnd.jsp").forward(request, response);
+			}
+		} catch(NullPointerException e){
+			e.printStackTrace();
+			HttpSession session = request.getSession();
+			session.setAttribute("alertMsg", "없는 회원입니다.");
+			response.sendRedirect(request.getContextPath());
 		}
 	}
 
