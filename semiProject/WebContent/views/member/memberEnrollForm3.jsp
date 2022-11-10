@@ -21,17 +21,12 @@
 		<div class="outer">
 			<div id="head" align="center">가입완료</div>
 			
-			<button onclick="goLogin();">로그인 하러 가기</button>
-		    <button onclick="goHome();">메인으로</button>
+		    <button onclick="goHome();">홈으로 가기</button>
 		</div>
     </div>
     <script>
-	    function goLogin(){
-	    	location.href = "<%=contextPath%>/loginview.me";
-	    }
-    
 	    function goHome(){
-	    	location.href = "<%=contextPath%>";
+	    	location.replace("<%=contextPath%>");
 	    }
     </script>
 
