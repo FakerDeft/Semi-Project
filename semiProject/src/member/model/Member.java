@@ -22,13 +22,13 @@ public class Member {
 		super();
 	}
 
-	public Member(String memId, String memPw, String memName, String memEmail, String memPhone, String memAddress) {
+	public Member(String memId, String memPw, String memName, String memPhone, String memEmail, String memAddress) {
 		super();
 		this.memId = memId;
 		this.memPw = memPw;
 		this.memName = memName;
-		this.memEmail = memEmail;
 		this.memPhone = memPhone;
+		this.memEmail = memEmail;
 		this.memAddress = memAddress;
 	}
 
@@ -51,6 +51,14 @@ public class Member {
 	public Member(String referer) {
 		super();
 		this.referer = referer;
+	}
+	
+	public int getMemNo() {
+		return memNo;
+	}
+
+	public void setMemNo(int memNo) {
+		this.memNo = memNo;
 	}
 
 	public String getReferer() {
@@ -143,9 +151,10 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [memId=" + memId + ", memPw=" + memPw + ", memName=" + memName + ", memEmail=" + memEmail
-				+ ", memPhone=" + memPhone + ", memAddress=" + memAddress + ", grade=" + grade + ", enrolldate="
-				+ enrolldate + ", enrollflag=" + enrollflag + ", deletedate=" + deletedate + "]";
+		return "Member [memNo=" + memNo + ", memId=" + memId + ", memPw=" + memPw + ", memName=" + memName
+				+ ", memEmail=" + memEmail + ", memPhone=" + memPhone + ", memAddress=" + memAddress + ", grade="
+				+ grade + ", enrolldate=" + enrolldate + ", enrollflag=" + enrollflag + ", deletedate=" + deletedate
+				+ ", referer=" + referer + "]";
 	}
-	
+
 }
