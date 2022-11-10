@@ -30,24 +30,19 @@ public class MemberInsertController extends HttpServlet {
 		String memId = request.getParameter("memId");
 		String memPw = request.getParameter("memPw");
 		String memName = request.getParameter("memName");
-		String memEmail = request.getParameter("memEmail");
 		String memPhone = request.getParameter("memPhone");
-		String memAddress = request.getParameter("memAddress");
+		String memEmail = request.getParameter("memEmail");
+		String memAddress = request.getParameter("memAddress")+","+request.getParameter("memAddressDetail");
+		Member m = new Member(memId,memPw,memName,memPhone,memEmail,memAddress);
 		
-		Member m = new Member(memId,memPw,memName,memEmail,memPhone,memAddress);
-		
-		
-		int result = new MemberService().insertMember(m);
-		
+		int result = new MemberService().insertMember(m);	
 		if(result>0) {
 			HttpSession session = request.getSession();
 			RequestDispatcher view = request.getRequestDispatcher("views/member/memberEnrollForm3.jsp");
 			view.forward(request, response);
-		}
-		
-		else {		
+		} else {		
 			HttpSession session = request.getSession();
-			session.setAttribute("alertMsg", "이미 존재하는 유저입니다.");
+			session.setAttribute("alertMsg", "가입 오류!");
 			response.sendRedirect(request.getContextPath());
 		}
 	}
