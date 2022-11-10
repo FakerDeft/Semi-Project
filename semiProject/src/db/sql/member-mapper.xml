@@ -15,8 +15,8 @@
 	                    MEM_ID,
 	                    MEM_PW,
 	                    MEM_NAME,
-	                    MEM_EMAIL,
 	                    MEM_PHONE,
+	                    MEM_EMAIL,
 	                    MEM_ADDRESS
                       ) VALUES(SEQ_MNO.NEXTVAL
                       		 ,?
@@ -32,6 +32,18 @@
 		SELECT *
 		FROM MEMBER
 		WHERE MEM_ID = ?
+	</entry>
+	
+	<entry key="phoneDuplicationCheck">
+		SELECT *
+		FROM MEMBER
+		WHERE MEM_PHONE = ?
+	</entry>
+	
+	<entry key="emailDuplicationCheck">
+		SELECT *
+		FROM MEMBER
+		WHERE MEM_EMAIL = ?
 	</entry>
 	
 	<entry key="findId">
@@ -57,6 +69,22 @@
 		WHERE RECIVER_NAME = ?
 		AND ORDER_NO = ?
 		AND MEM_FLAG = 'Y'
+	</entry>
+	
+	<entry key="updateMember">
+		UPDATE MEMBER
+		SET MEM_NAME = ?
+		   ,MEM_PHONE = ?
+		   ,MEM_EMAIL = ?
+		   ,MEM_ADDRESS = ?
+		WHERE MEM_ID = ?
+	</entry>
+	
+	<entry key="selectMember">
+		SELECT *
+		FROM MEMBER
+		WHERE MEM_ID = ?
+		AND ENROLLFLAG = 'Y'
 	</entry>
 	
 </properties>
