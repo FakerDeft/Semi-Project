@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.semi.member.model.service.MemberService;
 import com.semi.member.model.vo.Member;
 
 /**
@@ -22,10 +23,31 @@ public class MemberModifyController extends HttpServlet {
     }
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		HttpSession session = request.getSession();
 		Member loginMem = (Member) session.getAttribute("loginMem");
+		String memName = request.getParameter("memName");
+		String memPhone = request.getParameter("memPhone");
+		String memEmail = request.getParameter("memEmail");
+		String memAddress = request.getParameter("memAddress")+","+request.getParameter("memAddressDetail");
 		
-		request.getRequestDispatcher("views/member/memberModifyEnd.jsp").forward(request, response);
+		loginMem.setMemName(memName);
+		loginMem.setMemPhone(memPhone);
+		loginMem.setMemEmail(memEmail);
+		loginMem.setMemAddress(memAddress);
+		Member updateMem = new MemberService().updateMember(loginMem);
+		
+		try {
+			if(!updateMem.equals(null)) {
+				session.setAttribute("loginMem", updateMem);
+				request.getRequestDispatcher("views/member/memberModifyEnd.jsp").forward(request, response);			
+			}
+		} catch(NullPointerException e){
+			e.printStackTrace();
+			session.setAttribute("alertMsg", "정보수정에 실패했습니다.");			
+			response.sendRedirect(request.getContextPath());
+		}
 	}
 	
 }
