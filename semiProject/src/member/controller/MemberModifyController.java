@@ -41,7 +41,7 @@ public class MemberModifyController extends HttpServlet {
 		try {
 			if(!updateMem.equals(null)) {
 				session.setAttribute("loginMem", updateMem);
-				request.getRequestDispatcher("views/member/memberModifyEnd.jsp").forward(request, response);			
+				response.sendRedirect(request.getHeader("referer"));			
 			}
 		} catch(NullPointerException e){
 			e.printStackTrace();
