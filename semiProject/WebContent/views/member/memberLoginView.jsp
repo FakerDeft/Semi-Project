@@ -3,7 +3,6 @@
 <%
 	String referer = request.getHeader("referer");
 %>
-
 <!DOCTYPE html>
 <html>
 
@@ -216,7 +215,6 @@
 	</div>
 	<%}else{ %>
 		<script type="text/javascript">
-			alert("이미 로그인 상태입니다");
 			location.replace("/smp");
 		</script>
 	<%} %>
