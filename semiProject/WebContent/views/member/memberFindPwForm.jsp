@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
+<%
  String strReferer = request.getHeader("referer"); //이전 URL 가져오기
  
  if(strReferer == null){
@@ -20,7 +20,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-
 	div#head{
         font-size: 40px;
         width: 1600px;
@@ -28,14 +27,12 @@
         margin-bottom: 50px;
         border-bottom: 2px solid lightgray;
     }
-    
     .inputs{
         border: 1px solid lightgray;
         border-radius: 3px;
         width: 300px;
         height: 40px;
     }
-    
 </style>
 </head>
 <body>
@@ -44,8 +41,8 @@
 	<div align="center" style="width:1900px; position:relative;">
        	<div id="head" align="center">비밀번호 찾기</div>
         	
-        <form action="<%=contextPath %>/findPwEnd.me" method="post" id="login-form">         
-               <table align="center" id="login1">
+        <form action="<%=contextPath %>/findPwForm.me" method="post" id="login-form">         
+              <table align="center" id="login1">
                     <tr align="center">
                         <td style="pa dding:50px"></td>
                     </tr>
