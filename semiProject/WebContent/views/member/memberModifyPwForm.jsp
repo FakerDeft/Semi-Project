@@ -85,7 +85,7 @@
 					<div class="invalid-feedback" id="cp"></div>
 				</div>
 				<div class="d-grid gap-2">
-                    <button class="btn btn-primary btn-lg" type="submit" onclick="return register();">가입하기</button>
+                    <button class="btn btn-primary btn-lg" type="submit" onclick="return modify();">수정하기</button>
                 	<button type="button" class="btn btn-danger" id="btn-cancel" onclick="location.replace('<%=contextPath%>')">취소</button>
                 </div>
             </form>
@@ -94,6 +94,24 @@
 		</div>
     </div>
 <script>
+	function modify(){
+	    var pw = document.getElementById("pw").value;
+	    var pw_rule = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+])(?!.*[^a-zA-z0-9$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+	    var pwc = document.getElementById("pwc").value;
+	    
+	    if(pw == ""){
+	        alert("비밀번호를 입력해주세요.")
+	        return false;
+	    } else if(!pw_rule.test(pw)){
+	        alert("비밀번호는 영문자, 숫자, 특수문자(!@#$%^&*)를 포함해 8~16자만 가능합니다.")
+	        return false;
+	    } else if(pwc == ""){
+	    	alert("비밀번호 확인을 입력해주세요.")
+	        return false;
+	    }
+	    return true;
+	}
+	
 	$('#myPw').focusout(function(){
 		let myPw = $('#myPw').val(); 
 		
