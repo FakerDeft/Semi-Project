@@ -218,15 +218,14 @@ public class MemberDao {
 	}
 
 	//비밀번호 찾기 메소드
-	public MemberPw findPw(Connection conn, String memId, String memName, String memPhone) {
-		MemberPw mpw = null;
+	public int findPw(Connection conn, String memId, String memName, String memPhone) {
+		int findPwResult = 0;
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		
 		String sql = prop.getProperty("findPw");
 		
 		try {
-
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, memId);
@@ -234,9 +233,8 @@ public class MemberDao {
 			pstmt.setString(3, memPhone);
 			
 			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				mpw = new MemberPw(rset.getString("MEM_PW"));
+			if(rset.next() == true) {
+				findPwResult = 1;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -249,8 +247,7 @@ public class MemberDao {
 				JDBCTemplate.close(pstmt);
 			}
 		}
-		
-		return mpw;
+		return findPwResult;
 	}
 
 	//비회원 로그인 메소드
@@ -285,7 +282,7 @@ public class MemberDao {
 
 	//회원 정보 수정 메소드
 	public int updateMember(Connection conn, Member loginMem) {
-		int result = 0;
+		int updateResult = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateMember");
 		
@@ -296,7 +293,7 @@ public class MemberDao {
 			pstmt.setString(3, loginMem.getMemEmail());
 			pstmt.setString(4, loginMem.getMemAddress());
 			pstmt.setString(5, loginMem.getMemId());
-			result=pstmt.executeUpdate();
+			updateResult=pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -304,7 +301,7 @@ public class MemberDao {
 				JDBCTemplate.close(pstmt);
 			}
 		}
-		return result;
+		return updateResult;
 	}
 
 	//회원 조회 메소드
@@ -345,6 +342,26 @@ public class MemberDao {
 		return m;
 	}
 
+	//비밀번호 수정 메소드
+	public int modifyPw(Connection conn, Member memIdPw) {
+		int modifyPwResult = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("modifyPw");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, memIdPw.getMemPw());
+			pstmt.setString(2, memIdPw.getMemId());
+			modifyPwResult=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) {				
+				JDBCTemplate.close(pstmt);
+			}
+		}
+		return modifyPwResult;
+	}
 
 }
 
