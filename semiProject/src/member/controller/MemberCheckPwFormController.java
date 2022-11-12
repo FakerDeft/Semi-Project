@@ -25,17 +25,16 @@ public class MemberCheckPwFormController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		String memPw = request.getParameter("memPw");
 		HttpSession session = request.getSession();
 		Member loginMem = (Member) session.getAttribute("loginMem");
+		String memPw = request.getParameter("memPw");
 		
-		if(loginMem.getMemPw() != memPw){
-			session.setAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
+		if(loginMem.getMemPw().equals(memPw)){
+				response.sendRedirect(request.getContextPath()+"/selectModification.me");
+		}else {
 			response.sendRedirect(request.getHeader("referer"));
-		} else {
-			response.sendRedirect(request.getContextPath()+"/modifyform.me");
+			session.setAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");			
 		}
-		
 	}
 	
 }
