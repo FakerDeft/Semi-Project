@@ -87,6 +87,12 @@
 		AND ENROLLFLAG = 'Y'
 	</entry>
 	
+	<entry key="modifyPw">
+		UPDATE MEMBER
+		SET MEM_PW = ?
+		WHERE MEM_ID = ?
+	</entry>
+	
 </properties>
 	
 	
