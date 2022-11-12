@@ -22,6 +22,12 @@ public class Member {
 		super();
 	}
 
+	public Member(String memId, String memPw) {
+		super();
+		this.memId = memId;
+		this.memPw = memPw;
+	}
+
 	public Member(String memId, String memPw, String memName, String memPhone, String memEmail, String memAddress) {
 		super();
 		this.memId = memId;
