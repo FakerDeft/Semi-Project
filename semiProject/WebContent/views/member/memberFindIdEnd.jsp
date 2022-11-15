@@ -21,21 +21,39 @@
     
 </style>
 </head>
-<body>
 <%@ include file = "/views/common/menubar.jsp" %>
-
+<script type="text/javascript">
+	history.pushState(null, null, location.href); 
+	window.onpopstate = function(event) { 
+		history.go(1); 
+	};
+	function NotReload(){
+	    if( (event.ctrlKey == true && (event.keyCode == 78 || event.keyCode == 82)) || (event.keyCode == 116) ) {
+	        event.keyCode = 0;
+	        event.cancelBubble = true;
+	        event.returnValue = false;
+	    } 
+	}
+	document.onkeydown = NotReload;
+</script>
+<body oncontextmenu="return false" onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
+    <%if(mid.getMemId() != null){ %>
 	<div align="center" style="width:1900px; position:relative;">
         	<div id="head" align="center">아이디 찾기</div>
-        	<%if(mid.getMemId() != null){ %>
         		<div>
         			<h2><%=mid.getMemId() %></h2>
         		</div>
-        	<%} %>
         	<div>
         	<br>
         		<button type="button" class="btn btn-info" id="btn-findPw" onclick="location.replace('<%=contextPath%>/findPw.me')">비밀번호 찾기</button>
         		<button type="button" class="btn btn-primary" id="btn-goHome" onclick="location.replace('<%=contextPath%>')">홈으로 가기</button>
         	</div>
+    <%} %>
+    <%if(mid.getMemId() == null) {%>
+    	<script type="text/javascript">
+			location.replace(<%=contextPath%>);
+		</script>
+    <%} %>
 	</div>
 </body>
 </html>
