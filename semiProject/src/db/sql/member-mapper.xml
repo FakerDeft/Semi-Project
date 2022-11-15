@@ -66,7 +66,7 @@
 	<entry key="loginNoMember">
 		SELECT *
 		FROM MEMORDER
-		WHERE RECIVER_NAME = ?
+		WHERE RECEIVER_NAME = ?
 		AND ORDER_NO = ?
 		AND MEM_FLAG = 'Y'
 	</entry>
@@ -91,6 +91,14 @@
 		UPDATE MEMBER
 		SET MEM_PW = ?
 		WHERE MEM_ID = ?
+	</entry>
+	
+	<entry key="deleteMember">
+		UPDATE MEMBER
+		SET ENROLLFLAG='N'
+			,DELETEDATE = SYSDATE
+		WHERE MEM_ID = ?
+		AND MEM_PW = ?
 	</entry>
 	
 </properties>
