@@ -14,7 +14,7 @@ Premium Shopping Mall for Master<br>
  - 구매자 - 일반, 장인
 <br>
 
-##나의 파트
+## 나의 파트
 
 - 회원가입
 - 로그인/로그아웃/아이디저장
