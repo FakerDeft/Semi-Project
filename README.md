@@ -17,7 +17,7 @@ Premium Shopping Mall for Master<br>
 ## 나의 기능 
 
 - 회원가입
- - 아이디 중복 유효성 검사
+  - 아이디 중복 유효성 검사
  - 주소 api 사용
  - 모든 입력 정규표현식 적용
 - 로그인
