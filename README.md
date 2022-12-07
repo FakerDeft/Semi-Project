@@ -14,6 +14,8 @@ Premium Shopping Mall for Master<br>
  - 구매자 - 일반, 장인
 <br>
 
+<img src="" width="450px" height="300px" alt=""></img><br/>
+
 ## 나의 기능 
 
 - 회원가입
@@ -28,7 +30,7 @@ Premium Shopping Mall for Master<br>
   - 아이디&현재 비밀번호 입력
   - 새 비밀번호
   - 정규표현식 적용
-- 회원정보수정
+- 정보수정
   - url접근 불가능, 로그인 상태에서만 접근 가능
   - 현재 비밀번호 입력
   - 정규표현식 적용
