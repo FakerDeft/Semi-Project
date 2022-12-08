@@ -4,7 +4,7 @@
 Premium Shopping Mall for Master<br>
 =========================<br>
 
-간단한 사이트 소개
+## 간단한 사이트 소개
 <br><br>
 회원등급 및 권한 - 일반<장인<관리자
 <br><br>
@@ -13,6 +13,8 @@ Premium Shopping Mall for Master<br>
  - 판매자 - 장인 
  - 구매자 - 일반, 장인
 <br>
+=================================================================<br>
+## Usecase Diagram
 
 <img src="https://github.com/fakerdeft/Semi-Project/blob/main/www.PNG?raw=true" width="1000px" height="700px" alt=""></img><br/>
 
@@ -26,6 +28,7 @@ Premium Shopping Mall for Master<br>
   - 아이디저장
 - 로그아웃
 - 아이디찾기
+  - 이름&전화번호 입력
 - 비밀번호찾기
   - 아이디&현재 비밀번호 입력
   - 새 비밀번호
