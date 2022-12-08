@@ -12,12 +12,12 @@ Premium Shopping Mall for Master<br>
 <br>
  - 판매자 - 장인 
  - 구매자 - 일반, 장인
-=================================================================<br>
+
 
 ## Usecase Diagram
 
 <img src="https://github.com/fakerdeft/Semi-Project/blob/main/www.PNG?raw=true" width="1000px" height="700px" alt=""></img><br/>
-=================================================================<br>
+
 
 ## 나의 기능 
 
