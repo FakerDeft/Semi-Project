@@ -1,11 +1,8 @@
 # KH Semi-Project
-=========================<br>
 匠人(장인)들을 위한 프리미엄 쇼핑몰<br>
 Premium Shopping Mall for Master<br>
-=========================<br>
 
 ## 간단한 사이트 소개
-<br><br>
 회원등급 및 권한 - 일반<장인<관리자
 <br><br>
 장인이 되려면 관리자의 승인 필요.
@@ -20,7 +17,6 @@ Premium Shopping Mall for Master<br>
 
 
 ## 나의 기능 
-
 - 회원가입
   - 아이디 중복 유효성 검사
   - 주소 api 사용
