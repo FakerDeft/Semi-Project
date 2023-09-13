@@ -1,4 +1,4 @@
-# KH Semi-Project
+# Semi-Project
 匠人(장인)들을 위한 프리미엄 쇼핑몰<br>
 Premium Shopping Mall for Master<br>
 
